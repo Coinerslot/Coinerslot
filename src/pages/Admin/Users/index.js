@@ -93,7 +93,7 @@ export default function Index() {
         to_name: `Hi, ${user.Fullname}`,
         user_name: values.name,
         user_email: values.email,
-        reply_to: 'coinerslotteam@gmail.com',
+        reply_to: 'coinerslot@gmail.com',
         message: values.message,
       }
       emailjs.send(service_id, templete_id, templateParams, user_id).then(

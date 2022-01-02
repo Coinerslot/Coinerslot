@@ -2,21 +2,17 @@ import React from 'react'
 import clsx from 'clsx'
 import { styled } from '@material-ui/styles'
 import CloseIcon from '@material-ui/icons/Close'
+import { getAuth, signOut } from 'firebase/auth'
 import { AppBar, Badge } from '@material-ui/core'
 import { Dialog, DialogTitle } from '@material-ui/core'
 import { Menu, DialogContent } from '@material-ui/core'
-import { AccountCircle, Mail, Notifications } from '@material-ui/icons'
 import { useRecoilState, useSetRecoilState } from 'recoil'
-import {
-  currentHomeScreen,
-  isAuthenticated,
-  TandC,
-  userAccount,
-} from '../recoil'
+import { currentHomeScreen, isAuthenticated } from '../recoil'
+import { AccountCircle, Mail, Notifications } from '@material-ui/icons'
 import { IconButton, MenuItem, Toolbar, Typography } from '@material-ui/core'
-import { useCustomStyles } from '../constants/styles'
 import logo from '../libs/Data/img/coinerslotLogo.jpg'
-import { getAuth, signOut } from 'firebase/auth'
+import { useCustomStyles } from '../constants/styles'
+import { TandC, userAccount } from '../recoil'
 import { updateUser } from '../config'
 
 export default function PrimaryNavBar() {
@@ -178,7 +174,7 @@ export default function PrimaryNavBar() {
             noWrap
           >
             {' '}
-            coinerslot
+            Coinerslot
           </Typography>
         </div>
         <div style={{ marginRight: '2%' }}>

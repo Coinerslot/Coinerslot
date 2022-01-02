@@ -4,13 +4,13 @@ import { useRecoilState, useSetRecoilState } from 'recoil'
 import { isAuthenticated, currentHomeScreen } from '../../recoil'
 import { adminScreen } from '../../recoil'
 import { useStyles } from './styles'
+import ExDeposit from './ExDeposit'
+import Blacklist from './Blacklist'
 import Payments from './Payments'
 import Withdraw from './Withdraw'
+import Setting from './Setting'
 import Updates from './Blog'
 import Users from './Users'
-import Setting from './Setting'
-import Blacklist from './Blacklist'
-import ExDeposit from './ExDeposit'
 
 export default function InputAdornments() {
   const classes = useStyles()

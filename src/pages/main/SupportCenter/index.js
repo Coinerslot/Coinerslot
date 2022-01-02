@@ -26,9 +26,9 @@ export default function SupportCenter() {
   const handleSend = () => {
     const templateParams = {
       from_name: values.name,
-      to_name: 'From coinerslotSupportCenter',
+      to_name: 'From CoinerslotSupportCenter',
       user_name: values.name,
-      user_email: 'coinerslotteam@gmail.com',
+      user_email: 'coinerslot@gmail.com',
       reply_to: values.email,
       message: values.message,
     }
