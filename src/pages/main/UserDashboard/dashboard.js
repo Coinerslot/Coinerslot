@@ -5,9 +5,9 @@ import { doc, getDoc } from 'firebase/firestore'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { Box, CircularProgress, Typography } from '@material-ui/core'
 import { userAccount, mrWorker } from '../../../recoil'
+import Timer from '../../../libs/helpers'
 import { db } from '../../../config'
 import { useStyles } from './styles'
-import Timer from '../../../libs/helpers'
 
 export default function Details() {
   const classes = useStyles()
