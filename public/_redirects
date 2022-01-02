@@ -1,0 +1,9 @@
+/*  /index.html  200
+
+# Redirects from what the browser requests to what we serve
+/home              /
+/login             /login
+/register          /register
+/profile           /profile
+/admin             /admin
+/pageNotFound      /pageNotFound
