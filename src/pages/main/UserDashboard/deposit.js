@@ -3,10 +3,10 @@ import { Button, Card, CardContent, Paper } from '@material-ui/core'
 import { CardActions, TextField, Typography } from '@material-ui/core'
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
 import {investPlans, profileScreen, userAccount, mrWorker } from '../../../recoil'
-import { payAddress } from '../../../libs/Data'
-import { useStyles } from './styles'
-import { updateUser } from '../../../config'
 import BitcoinBC from '../../../libs/Data/img/BitcoinBC.jpg'
+import { payAddress } from '../../../libs/Data'
+import { updateUser } from '../../../config'
+import { useStyles } from './styles'
 
 export default function StateTextFields() {
   const classes = useStyles()
