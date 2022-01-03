@@ -229,7 +229,7 @@ export default function Investment() {
   const isLogin = useRecoilValue(isAuthenticated)
   const setScreen = useSetRecoilState(currentHomeScreen)
   const setProfileScreen = useSetRecoilState(profileScreen)
-  const { netPercentage, netReturn } = useRecoilValue(mrWorker)
+  const { currentPlan, netPercentage, netReturn } = useRecoilValue(mrWorker)
   const [investData, setInvestmentData] = useRecoilState(investPlans)
   const [selectedValue, setSelectedValue] = useRecoilState(userAccount)
 
@@ -248,26 +248,9 @@ export default function Investment() {
   }, [setInvestmentData])
 
   const handleChange = (event) => {
-    investData.map((list) => {
-      switch (event.target.name) {
-        case 'SelectedPercent':
-          switch (event.target.value) {
-            case `${list.percent}`:
-              return setSelectedValue({
-                ...selectedValue,
-                Investplan: list.title,
-                SelectedPercent: list.percent,
-                DepositDuration: list.duration,
-              })
-            default:
-              return null
-          }
-        default:
-          return setSelectedValue({
-            ...selectedValue,
-            [event.target.name]: event.target.value,
-          })
-      }
+    return setSelectedValue({
+      ...selectedValue,
+      [event.target.name]: event.target.value,
     })
   }
 
@@ -294,8 +277,11 @@ export default function Investment() {
             </Avatar>
             <Divider className={classex.divider} />
             <p className={classex.text}>{list.durationText} </p>
-            <p className={classex.text}>Min: {list.min} </p>
-            <p className={classex.text}>Max: {list.max} </p>
+            <p className={classex.text}>Min: ${list.min.toLocaleString()} </p>
+            <p className={classex.text}>
+              Max:{' '}
+              {list.max === '∞' ? list.max : `$ ${list.max.toLocaleString()}`}
+            </p>
             <p className={classex.text}>Instant withdrawal</p>
             <Divider className={classex.divider} />
             <Button
@@ -329,21 +315,9 @@ export default function Investment() {
 
         <div className={classex.calcPaperWrap}>
           <Paper className={classex.calcPaper}>
-            <p className={classex.calcPaperLftxt}>Select Plan :</p>
-
-            <select
-              name='SelectedPercent'
-              onChange={handleChange}
-              className={classex.calcPaperSelect}
-            >
-              {investData.map((list) => (
-                <option key={list.title} value={list.percent}>
-                  {list.title}
-                </option>
-              ))}
-            </select>
+            <p className={classex.calcPaperLftxt}>Investment Plan :</p>
+            <p className={classex.calcPaperRttxt}>{currentPlan}</p>
           </Paper>
-
           <Paper className={classex.calcPaper}>
             <p className={classex.calcPaperLftxt}>Deposit Amount: </p>
             <input

@@ -1,5 +1,5 @@
-import React from 'react'
 import clsx from 'clsx'
+import React from 'react'
 import { useStyles } from './styles'
 import { useCustomStyles } from '../../../constants/styles'
 import sideImage from '../../../libs/Data/img/showcase.jpg'

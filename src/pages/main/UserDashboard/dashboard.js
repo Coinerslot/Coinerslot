@@ -70,9 +70,9 @@ export default function Details() {
                 {values.InvalidDeposit
                   ? ' Invalid deposit'
                   : values.DepositVerified
-                  ? '✔'
+                  ? ' ✔'
                   : values.AmountInvest > 1
-                  ? 'Pending'
+                  ? ' Pending'
                   : ' No deposit made'}
               </span>
             </div>
@@ -103,7 +103,7 @@ export default function Details() {
             <div style={{ display: 'flex' }}>
               <span style={{ color: '#fff' }}>
                 {values.WithdrawAmount > 1 &&
-                  ` $${values.WithdrawAmount.toLocaleString()}.00 `}
+                  ` $${values.WithdrawAmount.toLocaleString()}.00 `}{' '}
               </span>
               <span
                 style={{
@@ -112,9 +112,9 @@ export default function Details() {
                 }}
               >
                 {values.WithdrawApproved
-                  ? '✔'
+                  ? ' ✔'
                   : values.WithdrawAmount > 1
-                  ? 'Pending'
+                  ? ' Pending'
                   : ' No Request made'}
               </span>
             </div>
