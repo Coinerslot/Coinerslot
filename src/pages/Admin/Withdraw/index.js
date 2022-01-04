@@ -12,7 +12,8 @@ import Timer from '../../../libs/helpers'
 export default function Index() {
   const classes = useStyles()
   const [isOpen, setIsOpen] = React.useState(false)
-  const [data, setdata] = React.useState([])
+  const [reqData, setReqData] = React.useState([])
+  const [allData, setAllData] = React.useState([])
   const [user, setUser] = React.useState({
     Email: '',
     Phone: '',
@@ -40,13 +41,25 @@ export default function Index() {
   React.useEffect(() => {
     let ignore = false
     const fetchdata = async () => {
-      let alldataArr = []
-      const queryALLdata = await getDocs(
-        query(collection(db, 'users'), where('WithdrawStatus', '==', true))
+      let allDataArr = []
+      let reqDataArr = []
+      const queryReqData = await getDocs(
+        query(
+          collection(db, 'users'),
+          where('WithdrawStatus', '==', true),
+          where('WithdrawApproved', '==', false)
+        )
       )
-      if (queryALLdata) {
-        queryALLdata.docs.forEach((doc) => alldataArr.push(doc.data()))
-        !ignore && setdata(alldataArr)
+      if (queryReqData) {
+        queryReqData.docs.forEach((doc) => reqDataArr.push(doc.data()))
+        !ignore && setReqData(reqDataArr)
+      }
+      const queryALLData = await getDocs(
+        query(collection(db, 'users'), where('WithdrawApproved', '==', true))
+      )
+      if (queryALLData) {
+        queryALLData.docs.forEach((doc) => allDataArr.push(doc.data()))
+        !ignore && setAllData(allDataArr)
       }
     }
     fetchdata()
@@ -84,7 +97,7 @@ export default function Index() {
           </p>
         ))}
 
-        {user.WithdrawStatus && (
+        {!user.WithdrawApproved && (
           <div
             style={{
               display: 'flex',
@@ -124,7 +137,7 @@ export default function Index() {
   return (
     <React.Fragment>
       {isOpen && <ViewUser />}
-      {data.length <= 0 && (
+      {reqData.length <= 0 && (
         <div>
           <Typography
             color='secondary'
@@ -137,12 +150,12 @@ export default function Index() {
       )}
 
       <List className={classes.list}>
-        {data.length > 0 && (
+        {reqData.length > 0 && (
           <ListSubheader className={classes.subheader} id='#'>
             Withdrawal Request
           </ListSubheader>
         )}
-        {data
+        {reqData
           .sort((a, b) => new Date(a.DepositDate) - new Date(b.DepositDate))
           .map((list, index) => (
             <Paper key={list.Fullname + index}>
@@ -165,6 +178,61 @@ export default function Index() {
                   </p>
                   <p className={classes.text}>
                     <span className={classes.subTitle}>Amount Requested:</span>{' '}
+                    ${parseInt(list.WithdrawAmount).toLocaleString()}.00
+                  </p>
+                  <p className={classes.text}>
+                    <span className={classes.subTitle}>Invest Date:</span>
+                    {list.DepositDate}
+                  </p>
+
+                  <Timer {...list} />
+                </div>
+              </ListItem>
+            </Paper>
+          ))
+          .reverse()}
+      </List>
+      {allData.length <= 0 && (
+        <div>
+          <Typography
+            color='secondary'
+            variant='h4'
+            style={{ textAlign: 'center', marginTop: '10%' }}
+          >
+            No Withdrawal History Available now
+          </Typography>
+        </div>
+      )}
+
+      <List className={classes.list}>
+        {allData.length > 0 && (
+          <ListSubheader className={classes.subheader} id='#'>
+            Withdrawal History
+          </ListSubheader>
+        )}
+        {allData
+          .sort((a, b) => new Date(a.DepositDate) - new Date(b.DepositDate))
+          .map((list, index) => (
+            <Paper key={list.Fullname + index}>
+              <ListItem
+                className={classes.listItem}
+                button
+                onClick={() => {
+                  setUser(list)
+                  setIsOpen(true)
+                }}
+              >
+                <ListItemAvatar>
+                  <Avatar />
+                </ListItemAvatar>
+                <div>
+                  <h2 className={classes.listTitle}>{list.Fullname}</h2>
+                  <p className={classes.text}>
+                    <span className={classes.subTitle}>Net Investment:</span> $
+                    {parseInt(list.TotalAmountInvest).toLocaleString()}.00
+                  </p>
+                  <p className={classes.text}>
+                    <span className={classes.subTitle}>Amount Withdrawed:</span>{' '}
                     ${parseInt(list.WithdrawAmount).toLocaleString()}.00
                   </p>
                   <p className={classes.text}>

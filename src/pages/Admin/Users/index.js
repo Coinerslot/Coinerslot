@@ -350,6 +350,17 @@ export default function Index() {
                       ${list.AmountInvest.toLocaleString()}.00 deposit
                     </p>
                   )}
+                  {list.WithdrawStatus && !list.WithdrawApproved && (
+                    <p>
+                      <span
+                        className={classes.subTitle}
+                        style={{ color: 'red' }}
+                      >
+                        Note:{' '}
+                      </span>
+                      ${list.WithdrawAmount.toLocaleString()}.00 withdrawal request
+                    </p>
+                  )}
                   {list.InvalidDeposit && (
                     <p>
                       <span
